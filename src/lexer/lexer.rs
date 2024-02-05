@@ -1,3 +1,5 @@
+use crate::token::{Token, TokenType};
+
 pub struct Lexer {
   input: Vec<char>,
   position: usize,
@@ -28,5 +30,12 @@ impl Lexer {
 
     self.position = self.read_position;
     self.read_position += 1;
+  }
+
+  fn new_token(&self, token_type: TokenType, literal: char) -> Token {
+    return Token {
+      token_type: token_type,
+      literal: literal.to_string()
+    };
   }
 }
