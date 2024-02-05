@@ -38,4 +38,23 @@ impl Lexer {
       literal: literal.to_string()
     };
   }
+
+  pub fn next_token(&mut self) -> Token {
+    let token = match self.ch {
+      '=' => self.new_token(TokenType::ASSIGN, self.ch),
+      '+' => self.new_token(TokenType::PLUS, self.ch),
+      '(' => self.new_token(TokenType::LPARAN, self.ch),
+      ')' => self.new_token(TokenType::RPARAN, self.ch),
+      '{' => self.new_token(TokenType::LBRACE, self.ch),
+      '}' => self.new_token(TokenType::RBRACE, self.ch),
+      ',' => self.new_token(TokenType::COMMA, self.ch),
+      ';' => self.new_token(TokenType::SEMICOLON, self.ch),
+      '\0' => self.new_token(TokenType::EOF, self.ch),
+      _ => self.new_token(TokenType::ILLEGAL, self.ch)
+    };
+
+    self.read_char();
+
+    return token;
+  }
 }
