@@ -39,6 +39,10 @@ fn test_next_token() {
       token_type: TokenType::SEMICOLON,
       literal: format!(";")
     },
+    Token {
+      token_type: TokenType::EOF,
+      literal: format!("")
+    },
   ];
 
   let mut lexer = Lexer::new(input);
