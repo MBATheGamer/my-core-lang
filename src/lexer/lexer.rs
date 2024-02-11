@@ -40,6 +40,8 @@ impl Lexer {
   }
 
   pub fn next_token(&mut self) -> Token {
+    self.skip_whitespace();
+
     let token = match self.ch {
       '=' => Lexer::new_token(TokenType::ASSIGN, self.ch),
       '+' => Lexer::new_token(TokenType::PLUS, self.ch),
@@ -56,5 +58,11 @@ impl Lexer {
     self.read_char();
 
     return token;
+  }
+
+  fn skip_whitespace(&mut self) {
+    while self.ch.is_ascii_whitespace() {
+      self.read_char();
+    }
   }
 }
