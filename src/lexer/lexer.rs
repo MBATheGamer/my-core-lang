@@ -65,4 +65,8 @@ impl Lexer {
       self.read_char();
     }
   }
+
+  fn is_letter(ch: char) -> bool {
+    return ch.is_alphabetic() || ch == '_';
+  }
 }
