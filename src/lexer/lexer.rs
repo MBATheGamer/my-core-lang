@@ -69,4 +69,15 @@ impl Lexer {
   fn is_letter(ch: char) -> bool {
     return ch.is_alphabetic() || ch == '_';
   }
+
+  fn read_identifier(&mut self) -> String {
+    let mut identifier = String::new();
+
+    while Lexer::is_letter(self.ch) {
+      identifier.push(self.ch);
+      self.read_char();
+    }
+
+    return identifier;
+  }
 }
