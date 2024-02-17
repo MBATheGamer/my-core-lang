@@ -1,4 +1,4 @@
-use crate::token::{Token, TokenType};
+use crate::token::{lookup_identifier, Token, TokenType};
 
 pub struct Lexer {
   input: Vec<char>,
@@ -52,7 +52,15 @@ impl Lexer {
       ',' => Lexer::new_token(TokenType::COMMA, self.ch),
       ';' => Lexer::new_token(TokenType::SEMICOLON, self.ch),
       '\0' => Lexer::new_token(TokenType::EOF, self.ch),
-      _ => Lexer::new_token(TokenType::ILLEGAL, self.ch)
+      _ => {
+        return if Lexer::is_letter(self.ch) {
+          let literal = self.read_identifier();
+          let token_type = lookup_identifier(&literal);
+          Token { token_type, literal }
+        } else {
+          Lexer::new_token(TokenType::ILLEGAL, self.ch)
+        }
+      }
     };
 
     self.read_char();
